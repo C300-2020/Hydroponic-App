@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="500px"
+    android:layout_height="500px"
+    app:cardCornerRadius="30px"
+    app:cardUseCompatPadding="true"
+    android:layout_margin="20px"
+    android:background="#000000">
+
+    <RelativeLayout
+        android:id="@+id/rlSummary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000">
+
+        <View
+            android:id="@+id/vBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="#80D3D3D3"/>
+
+        <view
+            android:id="@+id/view"
+            class="androidx.appcompat.widget.LinearLayoutCompat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="100px"
+                android:textColor="#000000"
+                android:text="0PH" />
+
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="50px"
+                android:textColor="#000000"
+                android:text="Acidity" />
+
+        </view>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

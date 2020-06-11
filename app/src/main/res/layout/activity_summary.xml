@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A9A9A9"
+    android:orientation="vertical"
+    tools:context=".SummaryActivity">
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginHorizontal="20px"
+        android:textColor="#000000"
+        android:textSize="75px"
+        android:text="Title" />
+
+    <ImageView
+        android:id="@+id/ivSummary"
+        android:layout_width="500px"
+        android:layout_height="500px"
+        android:layout_marginHorizontal="20px"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:layout_marginHorizontal="20px"
+        android:textColor="#000000"
+        android:textSize="40px"
+        android:text="Description" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSummary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20px" />
+
+</LinearLayout>
