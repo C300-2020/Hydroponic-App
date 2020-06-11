@@ -3,21 +3,16 @@ package sg.edu.rp.c300.farmingmonitoringapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.LineData;
 
 import java.util.ArrayList;
 
 public class GraphActivity extends AppCompatActivity {
 
-    BarChart barChart;
+    LineChart lineChart;
 
     ArrayList alSelected;
     String type;
@@ -27,27 +22,17 @@ public class GraphActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
 
-        barChart = findViewById(R.id.barChart);
+        lineChart = findViewById(R.id.lineChart);
 
         Intent i = getIntent();
         alSelected = i.getParcelableArrayListExtra("data");
         type = i.getStringExtra("type");
 
-        BarData data = new BarData(alSelected);
-        barChart.setData(data);
-        barChart.setDescription(type);
-        barChart.animateXY(2000, 2000);
-        barChart.invalidate();
+        LineData data = new LineData(alSelected);
+        lineChart.setData(data);
+        lineChart.setDescription(type);
+        lineChart.animateXY(2000, 2000);
+        lineChart.invalidate();
     }
 
-    private ArrayList getXAxisValues() {
-        ArrayList xAxis = new ArrayList();
-        xAxis.add("JAN");
-        xAxis.add("FEB");
-        xAxis.add("MAR");
-        xAxis.add("APR");
-        xAxis.add("MAY");
-        xAxis.add("JUN");
-        return xAxis;
-    }
 }
