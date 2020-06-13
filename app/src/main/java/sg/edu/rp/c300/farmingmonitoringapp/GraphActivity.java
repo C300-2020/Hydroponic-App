@@ -3,10 +3,14 @@ package sg.edu.rp.c300.farmingmonitoringapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
 
@@ -16,6 +20,9 @@ public class GraphActivity extends AppCompatActivity {
 
     ArrayList alSelected;
     String type;
+
+    LineDataSet setTime, setData;
+    ArrayList<Entry> data, time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +35,22 @@ public class GraphActivity extends AppCompatActivity {
         alSelected = i.getParcelableArrayListExtra("data");
         type = i.getStringExtra("type");
 
-        LineData data = new LineData(alSelected);
-        lineChart.setData(data);
-        lineChart.setDescription(type);
-        lineChart.animateXY(2000, 2000);
-        lineChart.invalidate();
+        lineChart.setBackgroundColor(Color.BLUE);
+        lineChart.setGridBackgroundColor(Color.BLACK);
+        lineChart.setDrawGridBackground(true);
+
+        lineChart.setDrawBorders(true);
+        lineChart.getDescription().setEnabled(true);
+        lineChart.setPinchZoom(false);
+
+        Legend legChart = lineChart.getLegend();
+        legChart.setEnabled(false);
+
+        data.addAll(alSelected);
+
+        setData = new LineDataSet(data, "Data");
+        setTime = new LineDataSet(time, "Time");
+
     }
 
 }
