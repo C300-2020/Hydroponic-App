@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,16 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.HomeViewHolder> {
 
@@ -34,7 +44,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         TextView tvPlantName, tvPlantDate;
         CardView cvHome;
 
-        public HomeViewHolder(@NonNull View itemView) {
+        public HomeViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             rlHome = itemView.findViewById(R.id.rlHome);
@@ -47,6 +57,9 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
                 public void onClick(View view) {
 
                     Intent i = new Intent(view.getContext(), SummaryActivity.class);
+
+                    Log.i("TAG", "onClick: lmao " + hPlantList.get(getAdapterPosition()).getPlantName());
+
                     i.putExtra("data", hPlantList.get(getAdapterPosition()));
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     view.getContext().startActivity(i);

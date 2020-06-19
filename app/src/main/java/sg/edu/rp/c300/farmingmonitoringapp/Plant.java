@@ -1,5 +1,7 @@
 package sg.edu.rp.c300.farmingmonitoringapp;
 
+import org.json.JSONArray;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -11,12 +13,12 @@ public class Plant implements Serializable {
     private String datePlanted;
     private ArrayList<Double> temperature;
     private ArrayList<Integer> humidity;
-    private ArrayList<Integer> acidity;
+    private ArrayList<Double> acidity;
     private ArrayList<Double> waterLvl;
     private ArrayList<Integer> lightLvl;
     private String plantImage;
 
-    public Plant(int plantId, String plantName, String plantDescription, String datePlanted, ArrayList<Double> temperature, ArrayList<Integer> humidity, ArrayList<Integer> acidity, ArrayList<Double> waterLvl, ArrayList<Integer> lightLvl, String plantImage) {
+    public Plant(int plantId, String plantName, String plantDescription, String datePlanted, ArrayList<Double> temperature, ArrayList<Integer> humidity, ArrayList<Double> acidity, ArrayList<Double> waterLvl, ArrayList<Integer> lightLvl, String plantImage) {
         this.plantId = plantId;
         this.plantName = plantName;
         this.plantDescription = plantDescription;
@@ -53,7 +55,7 @@ public class Plant implements Serializable {
         return humidity;
     }
 
-    public ArrayList<Integer> getAcidity() {
+    public ArrayList<Double> getAcidity(){
         return acidity;
     }
 

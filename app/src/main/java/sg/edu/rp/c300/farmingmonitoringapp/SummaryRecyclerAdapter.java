@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecyclerAdapter.SummaryViewHolder> {
@@ -50,21 +52,22 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
                     int selected = getAdapterPosition();
 
                     if(selected == 0){
-                        alSelected.addAll(plantInfo.getTemperature());
+                        alSelected.add(plantInfo.getTemperature());
                         selectedType = "Temperature";
                     }else if(selected == 1){
-                        alSelected.addAll(plantInfo.getHumidity());
+                        alSelected.add(plantInfo.getHumidity());
                         selectedType = "Humidity";
                     }else if(selected == 2){
-                        alSelected.addAll(plantInfo.getWaterLvl());
+                        alSelected.add(plantInfo.getWaterLvl());
                         selectedType = "Water Level";
                     }else if(selected == 3){
-                        alSelected.addAll(plantInfo.getAcidity());
+                        alSelected.add(plantInfo.getAcidity());
                         selectedType = "Acidity";
                     }else if(selected == 4){
-                        alSelected.addAll(plantInfo.getLightLvl());
+                        alSelected.add(plantInfo.getLightLvl());
                         selectedType = "Light Level";
                     }
+
 
                     Intent i = new Intent(view.getContext(), GraphActivity.class);
                     i.putExtra("type", selectedType);
@@ -96,27 +99,27 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
         if(position == 0){
             drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_temperature_background);
             holder.rlSummary.setBackground(drawable);
-            holder.tvValue.setText(String.valueOf(plantInfo.getTemperature().get(-1)));
+            holder.tvValue.setText(String.valueOf(plantInfo.getTemperature().get(plantInfo.getTemperature().size()-1)));
             holder.tvCategory.setText("Temperature");
         }else if(position == 1){
             drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_humidity_background);
             holder.rlSummary.setBackground(drawable);
-            holder.tvValue.setText(String.valueOf(plantInfo.getHumidity().get(-1)));
+            holder.tvValue.setText(String.valueOf(plantInfo.getHumidity().get(plantInfo.getHumidity().size()-1)));
             holder.tvCategory.setText("Humidity");
         }else if(position == 2){
             drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_water_level_background);
             holder.rlSummary.setBackground(drawable);
-            holder.tvValue.setText(String.valueOf(plantInfo.getWaterLvl().get(-1)));
+            holder.tvValue.setText(String.valueOf(plantInfo.getWaterLvl().get(plantInfo.getWaterLvl().size()-1)));
             holder.tvCategory.setText("Water Level");
         }else if(position == 3){
             drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_acidity_background);
             holder.rlSummary.setBackground(drawable);
-            holder.tvValue.setText(String.valueOf(plantInfo.getAcidity().get(-1)));
+            holder.tvValue.setText(String.valueOf(plantInfo.getAcidity().get(plantInfo.getAcidity().size()-1)));
             holder.tvCategory.setText("Acidity");
         }else if(position == 4){
             drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_light_level_background);
             holder.rlSummary.setBackground(drawable);
-            holder.tvValue.setText(String.valueOf(plantInfo.getLightLvl().get(-1)));
+            holder.tvValue.setText(String.valueOf(plantInfo.getLightLvl().get(plantInfo.getLightLvl().size()-1)));
             holder.tvCategory.setText("Light Level");
         }
 
