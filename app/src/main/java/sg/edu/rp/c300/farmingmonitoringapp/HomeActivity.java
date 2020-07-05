@@ -41,91 +41,104 @@ public class HomeActivity extends AppCompatActivity {
         alWater = new ArrayList<>();
         alLight = new ArrayList<>();
 
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get("https://hydroponic.myapplicationdev.com/webservices/retrieve_all.php", new JsonHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-
-                try {
-
-                    alHome.clear();
-                    alTemp.clear();
-                    alAcid.clear();
-                    alHum.clear();
-                    alLight.clear();
-                    alWater.clear();
-
-                    for (int i = 0; i<response.length(); i++) {
-                        JSONObject plant = (JSONObject) response.get(i);
-
-                        for (int a = 0; a<plant.getJSONArray("temp").length(); a++){
-                            alTemp.add((Double) plant.getJSONArray("temp").get(a));
-                        }
-
-                        for (int a = 0; a<plant.getJSONArray("acidity").length(); a++){
-                            alAcid.add((Double) plant.getJSONArray("acidity").get(a));
-                        }
-
-                        for (int a = 0; a<plant.getJSONArray("humidity").length(); a++){
-                            alHum.add((Integer) plant.getJSONArray("humidity").get(a));
-                        }
-
-                        for (int a = 0; a<plant.getJSONArray("light").length(); a++){
-                            alLight.add((Integer) plant.getJSONArray("light").get(a));
-                        }
-
-                        for (int a = 0; a<plant.getJSONArray("water").length(); a++){
-                            alWater.add((Double) plant.getJSONArray("water").get(a));
-                        }
-
-                        Plant p = new Plant(
-                                plant.getInt("id_plant"),
-                                plant.getString("plant_name"),
-                                plant.getString("description"),
-                                plant.getString("date_planted"),
-                                alTemp,
-                                alHum,
-                                alAcid,
-                                alWater,
-                                alLight,
-                                plant.getString("image"));
-                        alHome.add(p);
-                    }
-
-                    Log.i("TAG", "onCreate: lmao " + alHome.size());
-
-                }catch (JSONException e) {
-
-                    Log.i("TAG", "onSuccess: lmao fail " + e);
-
-                }
-
-                rvaHome.notifyDataSetChanged();
-
-            }
-        });
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        client.get("https://hydroponic.myapplicationdev.com/webservices/retrieve_all.php", new JsonHttpResponseHandler() {
+//
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+//
+//                try {
+//
+//                    alHome.clear();
+//                    alTemp.clear();
+//                    alAcid.clear();
+//                    alHum.clear();
+//                    alLight.clear();
+//                    alWater.clear();
+//
+//                    for (int i = 0; i<response.length(); i++) {
+//                        JSONObject plant = (JSONObject) response.get(i);
+//
+//                        for (int a = 0; a<plant.getJSONArray("temp").length(); a++){
+//                            alTemp.add((Double) plant.getJSONArray("temp").get(a));
+//                        }
+//
+//                        for (int a = 0; a<plant.getJSONArray("acidity").length(); a++){
+//                            alAcid.add((Double) plant.getJSONArray("acidity").get(a));
+//                        }
+//
+//                        for (int a = 0; a<plant.getJSONArray("humidity").length(); a++){
+//                            alHum.add((Integer) plant.getJSONArray("humidity").get(a));
+//                        }
+//
+//                        for (int a = 0; a<plant.getJSONArray("light").length(); a++){
+//                            alLight.add((Integer) plant.getJSONArray("light").get(a));
+//                        }
+//
+//                        for (int a = 0; a<plant.getJSONArray("water").length(); a++){
+//                            alWater.add((Double) plant.getJSONArray("water").get(a));
+//                        }
+//
+//                        Plant p = new Plant(
+//                                plant.getInt("id_plant"),
+//                                plant.getString("plant_name"),
+//                                plant.getString("description"),
+//                                plant.getString("date_planted"),
+//                                alTemp,
+//                                alHum,
+//                                alAcid,
+//                                alWater,
+//                                alLight,
+//                                plant.getString("image"));
+//                        alHome.add(p);
+//                    }
+//
+//                    Log.i("TAG", "onCreate: lmao " + alHome.size());
+//
+//                }catch (JSONException e) {
+//
+//                    Log.i("TAG", "onSuccess: lmao fail " + e);
+//
+//                }
+//
+//                rvaHome.notifyDataSetChanged();
+//
+//            }
+//        });
 
         //DataTest
-//
-//        alTemp.add(36.9);
-//        alTemp.add(37.9);
-//
-//        alHum.add(1);
-//        alHum.add(10);
-//
-//        alAcid.add(1.5);
-//        alAcid.add(14.0);
-//
-//        alWater.add(3.0);
-//        alWater.add(3.5);
-//
-//        alLight.add(1000);
-//        alLight.add(100);
 
-//        alHome.add(new Plant(1, "test 1", "Plant 1 is thinking about dying", "date 1", alTemp, alHum, alAcid, alWater, alLight, "test1"));
-//        alHome.add(new Plant(2, "test 2", "Plant 2 might by dying", "date 2", 36.8, 2, 2, 33.8, 900, "test2"));
-//        alHome.add(new Plant(3, "test 3", "Plant 3 is going to die", "date 3", 36.7, 3, 3, 33.7, 800, "test3"));
+        alTemp.add(36.9);
+        alTemp.add(37.9);
+        alTemp.add(36.9);
+        alTemp.add(35.9);
+        alTemp.add(37.9);
+        alTemp.add(39.9);
+        alTemp.add(40.9);
+        alTemp.add(36.9);
+        alTemp.add(37.9);
+        alTemp.add(36.9);
+        alTemp.add(35.9);
+        alTemp.add(37.9);
+        alTemp.add(39.9);
+        alTemp.add(40.9);
+        alTemp.add(41.5);
+
+        alHum.add(1);
+        alHum.add(10);
+
+        alAcid.add(1.5);
+        alAcid.add(14.0);
+
+        alWater.add(3.0);
+        alWater.add(3.5);
+
+        alLight.add(1000);
+        alLight.add(100);
+
+        alHome.add(new Plant(1, "test 1", "Plant 1 is thinking about dying", "date 1", alTemp, alHum, alAcid, alWater, alLight, "test1"));
+        alHome.add(new Plant(2, "test 2", "Plant 2 might by dying", "date 2", alTemp, alHum, alAcid, alWater, alLight, "test2"));
+        alHome.add(new Plant(3, "test 3", "Plant 3 is going to die", "date 3", alTemp, alHum, alAcid, alWater, alLight, "test3"));
 //        alHome.add(new Plant(1, "test 4", "Plant 4 thought there is hope to live", "date 4", 36.6, 4, 4, 33.6, 700, "test4"));
 //        alHome.add(new Plant(2, "test 5", "Plant 5 gave up hope cause it is almost useless", "date 5", 36.5, 5, 6, 33.5, 600, "test5"));
 //        alHome.add(new Plant(3, "test 6", "Plant 6 tried to kill itself", "date 6", 36.4, 6, 8, 33.4, 500, "test6"));

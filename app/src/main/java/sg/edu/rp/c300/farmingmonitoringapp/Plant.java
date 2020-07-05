@@ -71,4 +71,16 @@ public class Plant implements Serializable {
         return plantImage;
     }
 
+    public Boolean isEmpty(){
+
+        if (temperature == null | humidity == null | acidity == null | waterLvl == null | lightLvl == null){
+            return true;
+        }else if (temperature.size() == 0 | humidity.size() == 0 | acidity.size() == 0 | waterLvl.size() == 0 | lightLvl.size() == 0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
 }

@@ -58,8 +58,6 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
                     Intent i = new Intent(view.getContext(), SummaryActivity.class);
 
-                    Log.i("TAG", "onClick: lmao " + hPlantList.get(getAdapterPosition()).getPlantName());
-
                     i.putExtra("data", hPlantList.get(getAdapterPosition()));
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     view.getContext().startActivity(i);
