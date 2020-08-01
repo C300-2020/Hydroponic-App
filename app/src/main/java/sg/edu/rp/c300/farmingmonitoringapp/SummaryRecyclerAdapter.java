@@ -86,11 +86,17 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
                     }
 
 
-                    Intent i = new Intent(view.getContext(), GraphActivity.class);
-                    i.putExtra("type", selectedType);
-                    i.putExtra("data", alSelected);
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    view.getContext().startActivity(i);
+                    if(selected == 5){
+                        Intent i = new Intent(view.getContext(), ControlActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        view.getContext().startActivity(i);
+                    }else{
+                        Intent i = new Intent(view.getContext(), GraphActivity.class);
+                        i.putExtra("type", selectedType);
+                        i.putExtra("data", alSelected);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        view.getContext().startActivity(i);
+                    }
 
                 }
             });
@@ -113,7 +119,7 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
     @Override
     public void onBindViewHolder(@NonNull SummaryViewHolder holder, final int position) {
 
-        if(plantInfo.isEmpty() == false){
+        if(!plantInfo.isEmpty()){
 
             if(position == 0){
                 drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_temperature_background);
@@ -140,6 +146,11 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
                 holder.rlSummary.setBackground(drawable);
                 holder.tvValue.setText(String.valueOf(plantInfo.getLightLvl().get(plantInfo.getLightLvl().size()-1)));
                 holder.tvCategory.setText("Light Level");
+            }else if(position == 5){
+                drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_temperature_background);
+                holder.rlSummary.setBackground(drawable);
+                holder.tvValue.setText("Control");
+                holder.tvCategory.setText("Water\nand\nLight Level");
             }
 
         }
@@ -148,7 +159,7 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
 
     @Override
     public int getItemCount() {
-        return 5;
+        return 6;
     }
 
 }
