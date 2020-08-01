@@ -136,15 +136,9 @@ public class HomeActivity extends AppCompatActivity {
         alLight.add(1000);
         alLight.add(100);
 
-        alHome.add(new Plant(1, "test 1", "Plant 1 is thinking about dying", "date 1", alTemp, alHum, alAcid, alWater, alLight, "test1", false, false));
-        alHome.add(new Plant(2, "test 2", "Plant 2 might by dying", "date 2", alTemp, alHum, alAcid, alWater, alLight, "test2", true, true));
-        alHome.add(new Plant(3, "test 3", "Plant 3 is going to die", "date 3", alTemp, alHum, alAcid, alWater, alLight, "test3", true, true));
-//        alHome.add(new Plant(1, "test 4", "Plant 4 thought there is hope to live", "date 4", 36.6, 4, 4, 33.6, 700, "test4", true, true));
-//        alHome.add(new Plant(2, "test 5", "Plant 5 gave up hope cause it is almost useless", "date 5", 36.5, 5, 6, 33.5, 600, "test5", true, true));
-//        alHome.add(new Plant(3, "test 6", "Plant 6 tried to kill itself", "date 6", 36.4, 6, 8, 33.4, 500, "test6", true, true));
-//        alHome.add(new Plant(1, "test 7", "Plant 7 managed to stop the water", "date 7", 36.3, 7, 10, 33.3, 400, "test7", true, true));
-//        alHome.add(new Plant(2, "test 8", "Plant 8 managed to stop the light too", "date 8", 36.2, 8, 12, 33.2, 300, "test8", true, true));
-//        alHome.add(new Plant(3, "test 9", "Plant 9 is dead", "date 9", 36.1, 9, 14, 33.1, 200, "test9", true, true));
+        alHome.add(new Plant(1, "test 1", "Plant 1 is thinking about dying", "date 1", alTemp, alHum, alAcid, alWater, alLight, "test1"));
+        alHome.add(new Plant(2, "test 2", "Plant 2 might by dying", "date 2", alTemp, alHum, alAcid, alWater, alLight, "test2"));
+        alHome.add(new Plant(3, "test 3", "Plant 3 is going to die", "date 3", alTemp, alHum, alAcid, alWater, alLight, "test3"));
 
         //DataTest End
 

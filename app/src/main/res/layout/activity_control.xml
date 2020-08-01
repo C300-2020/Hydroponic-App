@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="20px"
+    android:paddingTop="10px"
     android:orientation="vertical"
     tools:context=".ControlActivity">
 
@@ -13,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="25px"
+        android:layout_margin="25px"
         android:text="Water" />
 
     <Switch
@@ -20,17 +22,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="25px"
+        android:layout_margin="25px"
         android:text="Light" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"/>
 
     <Button
         android:id="@+id/btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edge_black"
+        android:textColor="#ffffff"
         android:text="Apply" />
 
 </LinearLayout>

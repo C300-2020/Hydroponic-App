@@ -15,10 +15,8 @@ public class Plant implements Serializable {
     private ArrayList<Double> waterLvl;
     private ArrayList<Integer> lightLvl;
     private String plantImage;
-    private Boolean waterOn;
-    private Boolean lightOn;
 
-    public Plant(int plantId, String plantName, String plantDescription, String datePlanted, ArrayList<Double> temperature, ArrayList<Integer> humidity, ArrayList<Double> acidity, ArrayList<Double> waterLvl, ArrayList<Integer> lightLvl, String plantImage, Boolean waterOn, Boolean lightOn) {
+    public Plant(int plantId, String plantName, String plantDescription, String datePlanted, ArrayList<Double> temperature, ArrayList<Integer> humidity, ArrayList<Double> acidity, ArrayList<Double> waterLvl, ArrayList<Integer> lightLvl, String plantImage) {
         this.plantId = plantId;
         this.plantName = plantName;
         this.plantDescription = plantDescription;
@@ -29,8 +27,6 @@ public class Plant implements Serializable {
         this.waterLvl = waterLvl;
         this.lightLvl = lightLvl;
         this.plantImage = plantImage;
-        this.waterOn = waterOn;
-        this.lightOn = lightOn;
     }
 
     public int getPlantId() {
@@ -71,22 +67,6 @@ public class Plant implements Serializable {
 
     public String getPlantImage() {
         return plantImage;
-    }
-
-    public Boolean getWaterOn() {
-        return waterOn;
-    }
-
-    public void setWaterOn(Boolean waterOn) {
-        this.waterOn = waterOn;
-    }
-
-    public Boolean getLightOn() {
-        return lightOn;
-    }
-
-    public void setLightOn(Boolean lightOn) {
-        this.lightOn = lightOn;
     }
 
     public Boolean isEmpty(){

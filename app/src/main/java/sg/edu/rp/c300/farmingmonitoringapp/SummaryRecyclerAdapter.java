@@ -35,6 +35,7 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
 
         ArrayList alSelected, alData;
         String selectedType;
+        Boolean empty;
 
         public SummaryViewHolder (@NonNull View itemView) {
             super(itemView);
@@ -52,35 +53,61 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
 
                     alSelected.clear();
                     int selected = getAdapterPosition();
+                    empty = true;
 
                     if(selected == 0){
                         alData = plantInfo.getTemperature();
-                        for (int x = 0; x < alData.size(); x++){
-                            alSelected.add(alData.get(x));
+                        if(!alData.isEmpty()){
+                            for (int x = 0; x < alData.size(); x++){
+                                alSelected.add(alData.get(x));
+                            }
+                            empty = false;
+                        }else{
+                            empty = true;
                         }
                         selectedType = "Temperature";
                     }else if(selected == 1){
                         alData = plantInfo.getHumidity();
-                        for (int x = 0; x < alData.size(); x++){
-                            alSelected.add(alData.get(x));
+                        if(!alData.isEmpty()){
+                            for (int x = 0; x < alData.size(); x++){
+                                alSelected.add(alData.get(x));
+                            }
+                            empty = false;
+                        }else{
+                            empty = true;
                         }
                         selectedType = "Humidity";
                     }else if(selected == 2){
                         alData = plantInfo.getWaterLvl();
-                        for (int x = 0; x < alData.size(); x++){
-                            alSelected.add(alData.get(x));
+                        if(!alData.isEmpty()){
+                            for (int x = 0; x < alData.size(); x++){
+                                alSelected.add(alData.get(x));
+                            }
+                            empty = false;
+                        }else{
+                            empty = true;
                         }
                         selectedType = "Water Level";
                     }else if(selected == 3){
                         alData = plantInfo.getAcidity();
-                        for (int x = 0; x < alData.size(); x++){
-                            alSelected.add(alData.get(x));
+                        if(!alData.isEmpty()){
+                            for (int x = 0; x < alData.size(); x++){
+                                alSelected.add(alData.get(x));
+                            }
+                            empty = false;
+                        }else{
+                            empty = true;
                         }
                         selectedType = "Acidity";
                     }else if(selected == 4){
                         alData = plantInfo.getLightLvl();
-                        for (int x = 0; x < alData.size(); x++){
-                            alSelected.add(alData.get(x));
+                        if(!alData.isEmpty()){
+                            for (int x = 0; x < alData.size(); x++){
+                                alSelected.add(alData.get(x));
+                            }
+                            empty = false;
+                        }else{
+                            empty = true;
                         }
                         selectedType = "Light Level";
                     }
@@ -94,6 +121,7 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
                         Intent i = new Intent(view.getContext(), GraphActivity.class);
                         i.putExtra("type", selectedType);
                         i.putExtra("data", alSelected);
+                        i.putExtra("empty", empty);
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         view.getContext().startActivity(i);
                     }
