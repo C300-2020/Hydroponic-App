@@ -1,5 +1,6 @@
 package sg.edu.rp.c300.farmingmonitoringapp;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -27,7 +28,7 @@ public class ControlActivity extends AppCompatActivity {
     Switch swLight, swWater;
     Button btn;
 
-    String waterOn, lightOn;
+    String waterOn, lightOn, defLight, defWater;
 
     FirebaseDatabase fbdb;
     DatabaseReference rfWater, rfLight;
@@ -41,6 +42,9 @@ public class ControlActivity extends AppCompatActivity {
         swLight = findViewById(R.id.switchLight);
         btn = findViewById(R.id.btn);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Controls");
+
         fbdb = FirebaseDatabase.getInstance();
         rfWater = fbdb.getReference("controls").child("1").child("water");
         rfLight = fbdb.getReference("controls").child("1").child("light");
@@ -53,9 +57,11 @@ public class ControlActivity extends AppCompatActivity {
                     if(value.equalsIgnoreCase("on")){
                         swLight.setChecked(true);
                         lightOn = "on";
+                        defLight = "on";
                     }else if(value.equalsIgnoreCase("off")){
                         swLight.setChecked(false);
                         lightOn = "off";
+                        defLight = "off";
                     }
                 }
                 Log.d("From DB - light", "Value is: " + value);
@@ -72,9 +78,11 @@ public class ControlActivity extends AppCompatActivity {
                     if(value.equalsIgnoreCase("on")){
                         swWater.setChecked(true);
                         waterOn = "on";
+                        defWater = "on";
                     }else if(value.equalsIgnoreCase("off")){
                         swWater.setChecked(false);
                         waterOn = "off";
+                        defWater = "off";
                     }
                 }
                 Log.d("From DB - water", "Value is: " + value);
@@ -91,10 +99,8 @@ public class ControlActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
 
                 if(checked == true){
-                    Toast.makeText(getApplicationContext(), "Light is switched on", Toast.LENGTH_SHORT).show();
                     lightOn = "on";
                 }else{
-                    Toast.makeText(getApplicationContext(), "Light is switched off", Toast.LENGTH_SHORT).show();
                     lightOn = "off";
                 }
             }
@@ -105,10 +111,8 @@ public class ControlActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
 
                 if(checked){
-                    Toast.makeText(getApplicationContext(), "Water is switched on", Toast.LENGTH_SHORT).show();
                     waterOn = "on";
                 }else{
-                    Toast.makeText(getApplicationContext(), "Water is switched off", Toast.LENGTH_SHORT).show();
                     waterOn = "off";
                 }
             }
@@ -118,8 +122,13 @@ public class ControlActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                rfLight.setValue(lightOn);
-                rfWater.setValue(waterOn);
+                if(!lightOn.equalsIgnoreCase(defLight) || !waterOn.equalsIgnoreCase(defWater)){
+                    rfLight.setValue(lightOn);
+                    rfWater.setValue(waterOn);
+                    Toast.makeText(getApplicationContext(), "Water is switched " + waterOn + "\nLight is switched " + lightOn, Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), "No Changes Made", Toast.LENGTH_LONG).show();
+                }
 
                 finish();
             }

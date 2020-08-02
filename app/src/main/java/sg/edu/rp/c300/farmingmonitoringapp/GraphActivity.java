@@ -1,5 +1,6 @@
 package sg.edu.rp.c300.farmingmonitoringapp;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -40,6 +41,9 @@ public class GraphActivity extends AppCompatActivity {
         alSelected = i.getParcelableArrayListExtra("data");
         type = i.getStringExtra("type");
         empty = i.getBooleanExtra("empty", true);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(type + "'s Graph");
 
         data = new ArrayList<>();
 
@@ -85,7 +89,7 @@ public class GraphActivity extends AppCompatActivity {
 
         }else{
 
-            Toast.makeText(getApplicationContext(), "Your Array is empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "There is no data available", Toast.LENGTH_SHORT).show();
 
         }
 

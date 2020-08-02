@@ -11,14 +11,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.withActionBar">
 
-        <activity android:name=".ControlActivity"></activity>
+        <activity
+            android:name=".ControlActivity" />
         <activity
             android:name=".GraphActivity"
             android:screenOrientation="sensorLandscape" />
-        <activity android:name=".SummaryActivity" />
-        <activity android:name=".HomeActivity">
+        <activity
+            android:name=".SummaryActivity" />
+        <activity
+            android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
