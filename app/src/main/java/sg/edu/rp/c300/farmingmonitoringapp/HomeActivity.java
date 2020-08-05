@@ -27,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
     RecyclerView.LayoutManager rvlmHome;
 
     ArrayList<Plant> alHome;
-    ArrayList<Double> alTemp, alAcid, alWater;
+    ArrayList<Double> alTemp, alWater;
     ArrayList<Integer> alHum, alLight;
 
     @Override
@@ -41,7 +41,6 @@ public class HomeActivity extends AppCompatActivity {
         alHome = new ArrayList<>();
         alTemp = new ArrayList<>();
         alHum = new ArrayList<>();
-        alAcid = new ArrayList<>();
         alWater = new ArrayList<>();
         alLight = new ArrayList<>();
 
@@ -67,10 +66,6 @@ public class HomeActivity extends AppCompatActivity {
 //                            alTemp.add((Double) plant.getJSONArray("temp").get(a));
 //                        }
 //
-//                        for (int a = 0; a<plant.getJSONArray("acidity").length(); a++){
-//                            alAcid.add((Double) plant.getJSONArray("acidity").get(a));
-//                        }
-//
 //                        for (int a = 0; a<plant.getJSONArray("humidity").length(); a++){
 //                            alHum.add((Integer) plant.getJSONArray("humidity").get(a));
 //                        }
@@ -90,7 +85,6 @@ public class HomeActivity extends AppCompatActivity {
 //                                plant.getString("date_planted"),
 //                                alTemp,
 //                                alHum,
-//                                alAcid,
 //                                alWater,
 //                                alLight,
 //                                plant.getString("image"));
@@ -131,18 +125,15 @@ public class HomeActivity extends AppCompatActivity {
         alHum.add(1);
         alHum.add(10);
 
-        alAcid.add(1.5);
-        alAcid.add(14.0);
-
         alWater.add(3.0);
         alWater.add(3.5);
 
         alLight.add(1000);
         alLight.add(100);
 
-        alHome.add(new Plant(1, "test 1", "Plant 1 is thinking about dying", "date 1", alTemp, alHum, alAcid, alWater, alLight, "test1"));
-        alHome.add(new Plant(2, "test 2", "Plant 2 might by dying", "date 2", alTemp, alHum, alAcid, alWater, alLight, "test2"));
-        alHome.add(new Plant(3, "test 3", "Plant 3 is going to die", "date 3", alTemp, alHum, alAcid, alWater, alLight, "test3"));
+        alHome.add(new Plant(1, "test 1", "Plant 1 is thinking about dying", "date 1", alTemp, alHum, alWater, alLight, "test1"));
+        alHome.add(new Plant(2, "test 2", "Plant 2 might by dying", "date 2", alTemp, alHum, alWater, alLight, "test2"));
+        alHome.add(new Plant(3, "test 3", "Plant 3 is going to die", "date 3", alTemp, alHum, alWater, alLight, "test3"));
 
         //DataTest End
 

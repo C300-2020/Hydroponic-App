@@ -11,19 +11,17 @@ public class Plant implements Serializable {
     private String datePlanted;
     private ArrayList<Double> temperature;
     private ArrayList<Integer> humidity;
-    private ArrayList<Double> acidity;
     private ArrayList<Double> waterLvl;
     private ArrayList<Integer> lightLvl;
     private String plantImage;
 
-    public Plant(int plantId, String plantName, String plantDescription, String datePlanted, ArrayList<Double> temperature, ArrayList<Integer> humidity, ArrayList<Double> acidity, ArrayList<Double> waterLvl, ArrayList<Integer> lightLvl, String plantImage) {
+    public Plant(int plantId, String plantName, String plantDescription, String datePlanted, ArrayList<Double> temperature, ArrayList<Integer> humidity, ArrayList<Double> waterLvl, ArrayList<Integer> lightLvl, String plantImage) {
         this.plantId = plantId;
         this.plantName = plantName;
         this.plantDescription = plantDescription;
         this.datePlanted = datePlanted;
         this.temperature = temperature;
         this.humidity = humidity;
-        this.acidity = acidity;
         this.waterLvl = waterLvl;
         this.lightLvl = lightLvl;
         this.plantImage = plantImage;
@@ -53,10 +51,6 @@ public class Plant implements Serializable {
         return humidity;
     }
 
-    public ArrayList<Double> getAcidity(){
-        return acidity;
-    }
-
     public ArrayList<Double> getWaterLvl() {
         return waterLvl;
     }
@@ -71,9 +65,9 @@ public class Plant implements Serializable {
 
     public Boolean isEmpty(){
 
-        if (temperature == null | humidity == null | acidity == null | waterLvl == null | lightLvl == null){
+        if (temperature == null | humidity == null | waterLvl == null | lightLvl == null){
             return true;
-        }else if (temperature.size() == 0 | humidity.size() == 0 | acidity.size() == 0 | waterLvl.size() == 0 | lightLvl.size() == 0){
+        }else if (temperature.size() == 0 | humidity.size() == 0 | waterLvl.size() == 0 | lightLvl.size() == 0){
             return true;
         }else{
             return false;

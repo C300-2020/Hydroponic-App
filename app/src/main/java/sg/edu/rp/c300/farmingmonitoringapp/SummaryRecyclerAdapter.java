@@ -89,17 +89,6 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
                         }
                         selectedType = "Water Level";
                     }else if(selected == 3){
-                        alData = plantInfo.getAcidity();
-                        if(!alData.isEmpty()){
-                            for (int x = 0; x < alData.size(); x++){
-                                alSelected.add(alData.get(x));
-                            }
-                            empty = false;
-                        }else{
-                            empty = true;
-                        }
-                        selectedType = "Acidity";
-                    }else if(selected == 4){
                         alData = plantInfo.getLightLvl();
                         if(!alData.isEmpty()){
                             for (int x = 0; x < alData.size(); x++){
@@ -113,7 +102,7 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
                     }
 
 
-                    if(selected == 5){
+                    if(selected == 4){
                         Intent i = new Intent(view.getContext(), ControlActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         view.getContext().startActivity(i);
@@ -169,16 +158,11 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
                 holder.tvValue.setText(String.valueOf(plantInfo.getWaterLvl().get(plantInfo.getWaterLvl().size()-1)) + "CM");
                 holder.tvCategory.setText("Water Level");
             }else if(position == 3){
-                drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_acidity_background);
-                holder.rlSummary.setBackground(drawable);
-                holder.tvValue.setText(String.valueOf(plantInfo.getAcidity().get(plantInfo.getAcidity().size()-1)) + "PH");
-                holder.tvCategory.setText("Acidity");
-            }else if(position == 4){
                 drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_light_level_background);
                 holder.rlSummary.setBackground(drawable);
                 holder.tvValue.setText(String.valueOf(plantInfo.getLightLvl().get(plantInfo.getLightLvl().size()-1)) + "lx");
                 holder.tvCategory.setText("Light Level");
-            }else if(position == 5){
+            }else if(position == 4){
                 drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_temperature_background);
                 holder.rlSummary.setBackground(drawable);
                 holder.tvValue.setText("Control");
@@ -203,16 +187,11 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
                 holder.tvValue.setText("Empty");
                 holder.tvCategory.setText("Water Level");
             }else if(position == 3){
-                drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_acidity_background);
-                holder.rlSummary.setBackground(drawable);
-                holder.tvValue.setText("Empty");
-                holder.tvCategory.setText("Acidity");
-            }else if(position == 4){
                 drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_light_level_background);
                 holder.rlSummary.setBackground(drawable);
                 holder.tvValue.setText("Empty");
                 holder.tvCategory.setText("Light Level");
-            }else if(position == 5){
+            }else if(position == 4){
                 drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_temperature_background);
                 holder.rlSummary.setBackground(drawable);
                 holder.tvValue.setText("Nothing to Control");
@@ -225,7 +204,7 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
 
     @Override
     public int getItemCount() {
-        return 6;
+        return 5;
     }
 
 }
