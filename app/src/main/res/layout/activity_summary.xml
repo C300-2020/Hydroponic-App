@@ -7,23 +7,6 @@
     android:orientation="vertical"
     tools:context=".SummaryActivity">
 
-<!--    <TextView-->
-<!--        android:id="@+id/tvName"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="center"-->
-<!--        android:layout_marginHorizontal="20px"-->
-<!--        android:layout_marginTop="25px"-->
-<!--        android:textColor="#000000"-->
-<!--        android:textSize="75px"-->
-<!--        android:hint="Title" />-->
-<!--    <View-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="1dp"-->
-<!--        android:layout_marginHorizontal="20px"-->
-<!--        android:layout_marginBottom="25px"-->
-<!--        android:background="@color/colorPrimaryDark"/>-->
-
     <ImageView
         android:id="@+id/ivSummary"
         android:layout_width="500px"

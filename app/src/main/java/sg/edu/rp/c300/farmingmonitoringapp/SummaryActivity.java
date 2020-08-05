@@ -26,8 +26,6 @@ public class SummaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
 
-//        Debatable
-//        tvName = findViewById(R.id.tvName);
         tvDescription = findViewById(R.id.tvDescription);
         ivSummary = findViewById(R.id.ivSummary);
 
@@ -37,8 +35,6 @@ public class SummaryActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(plantInfo.getPlantName());
 
-//        Debatable
-//        tvName.setText(plantInfo.getPlantName());
         tvDescription.setText(plantInfo.getPlantDescription());
 
         if(plantInfo.getPlantImage().equals("")){

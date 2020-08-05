@@ -60,7 +60,7 @@ public class GraphActivity extends AppCompatActivity {
             setData.setDrawCircles(false);
             setData.setDrawValues(!setData.isDrawValuesEnabled());
             setData.setColor(Color.BLACK);
-            setData.setFillColor(Color.GRAY);
+            setData.setFillColor(Color.BLACK);
 
             lineData = new LineData(setData);
             lineChart.setData(lineData);
