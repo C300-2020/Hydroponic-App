@@ -8,12 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -35,9 +31,9 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
 
         ArrayList alSelected, alData;
         String selectedType;
-        Boolean empty;
+        Boolean empty, controllable;
 
-        public SummaryViewHolder (@NonNull View itemView) {
+        public SummaryViewHolder (View itemView) {
             super(itemView);
 
             tvValue = itemView.findViewById(R.id.tvValue);
@@ -53,14 +49,11 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
 
                     alSelected.clear();
                     int selected = getAdapterPosition();
-                    empty = true;
 
                     if(selected == 0){
                         alData = plantInfo.getTemperature();
                         if(!alData.isEmpty()){
-                            for (int x = 0; x < alData.size(); x++){
-                                alSelected.add(alData.get(x));
-                            }
+                            alSelected.addAll(alData);
                             empty = false;
                         }else{
                             empty = true;
@@ -69,9 +62,7 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
                     }else if(selected == 1){
                         alData = plantInfo.getHumidity();
                         if(!alData.isEmpty()){
-                            for (int x = 0; x < alData.size(); x++){
-                                alSelected.add(alData.get(x));
-                            }
+                            alSelected.addAll(alData);
                             empty = false;
                         }else{
                             empty = true;
@@ -80,9 +71,7 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
                     }else if(selected == 2){
                         alData = plantInfo.getWaterLvl();
                         if(!alData.isEmpty()){
-                            for (int x = 0; x < alData.size(); x++){
-                                alSelected.add(alData.get(x));
-                            }
+                            alSelected.addAll(alData);
                             empty = false;
                         }else{
                             empty = true;
@@ -91,19 +80,25 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
                     }else if(selected == 3){
                         alData = plantInfo.getLightLvl();
                         if(!alData.isEmpty()){
-                            for (int x = 0; x < alData.size(); x++){
-                                alSelected.add(alData.get(x));
-                            }
+                            alSelected.addAll(alData);
                             empty = false;
                         }else{
                             empty = true;
                         }
                         selectedType = "Light Level";
+                    }else if(selected == 4){
+                        if( !(plantInfo.getHumidity().isEmpty()) && !(plantInfo.getTemperature().isEmpty()) && !(plantInfo.getWaterLvl().isEmpty()) && !(plantInfo.getLightLvl().isEmpty()) ){
+                            controllable = true;
+                        }else{
+                            controllable = false;
+                        }
                     }
+
 
 
                     if(selected == 4){
                         Intent i = new Intent(view.getContext(), ControlActivity.class);
+                        i.putExtra("controllable", controllable);
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         view.getContext().startActivity(i);
                     }else{
@@ -121,9 +116,8 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
         }
     }
 
-    @NonNull
     @Override
-    public SummaryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SummaryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater pInflater = LayoutInflater.from(hContext);
         View v = pInflater.inflate(R.layout.summary_card, parent, false);
@@ -134,7 +128,7 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SummaryViewHolder holder, final int position) {
+    public void onBindViewHolder(SummaryViewHolder holder, final int position) {
 
         if(!plantInfo.isEmpty()){
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -29,6 +30,9 @@ public class HomeActivity extends AppCompatActivity {
     ArrayList<Plant> alHome;
     ArrayList<Double> alTemp, alWater;
     ArrayList<Integer> alHum, alLight;
+    ArrayList<String> alImg;
+
+    AsyncHttpClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +47,9 @@ public class HomeActivity extends AppCompatActivity {
         alHum = new ArrayList<>();
         alWater = new ArrayList<>();
         alLight = new ArrayList<>();
+        alImg = new ArrayList<>();
 
-//        AsyncHttpClient client = new AsyncHttpClient();
+//        client = new AsyncHttpClient();
 //        client.get("https://hydroponic.myapplicationdev.com/webservices/retrieve_all.php", new JsonHttpResponseHandler() {
 //
 //            @Override
@@ -54,10 +59,10 @@ public class HomeActivity extends AppCompatActivity {
 //
 //                    alHome.clear();
 //                    alTemp.clear();
-//                    alAcid.clear();
 //                    alHum.clear();
 //                    alLight.clear();
 //                    alWater.clear();
+//                    alImg.clear();
 //
 //                    for (int i = 0; i<response.length(); i++) {
 //                        JSONObject plant = (JSONObject) response.get(i);
@@ -78,6 +83,10 @@ public class HomeActivity extends AppCompatActivity {
 //                            alWater.add((Double) plant.getJSONArray("water").get(a));
 //                        }
 //
+//                        for(int a = 0; a<plant.getJSONArray("image").length(); a++){
+//                            alImg.add((String) plant.getJSONArray("image").get(a));
+//                        }
+//
 //                        Plant p = new Plant(
 //                                plant.getInt("id_plant"),
 //                                plant.getString("plant_name"),
@@ -87,16 +96,15 @@ public class HomeActivity extends AppCompatActivity {
 //                                alHum,
 //                                alWater,
 //                                alLight,
-//                                plant.getString("image"));
+//                                alImg);
+//
 //                        alHome.add(p);
 //                    }
 //
-//                    Log.i("TAG", "onCreate: lmao " + alHome.size());
+//                    Log.i("HomeActivity", "onCreate: lmao " + alHome.size() + "  " + alImg);
 //
 //                }catch (JSONException e) {
-//
-//                    Log.i("TAG", "onSuccess: lmao fail " + e);
-//
+//                    Log.i("HomeActivity", "onSuccess: Catch " + e);
 //                }
 //
 //                rvaHome.notifyDataSetChanged();
@@ -131,15 +139,21 @@ public class HomeActivity extends AppCompatActivity {
         alLight.add(1000);
         alLight.add(100);
 
-        alHome.add(new Plant(1, "test 1", "Plant 1 is thinking about dying", "date 1", alTemp, alHum, alWater, alLight, "test1"));
-        alHome.add(new Plant(2, "test 2", "Plant 2 might by dying", "date 2", alTemp, alHum, alWater, alLight, "test2"));
-        alHome.add(new Plant(3, "test 3", "Plant 3 is going to die", "date 3", alTemp, alHum, alWater, alLight, "test3"));
+        alImg.add("image1");
+        alImg.add("image2");
+        alImg.add("image3");
+        alImg.add("image4");
+        alImg.add("image5");
+
+        alHome.add(new Plant(1, "test 1", "Plant 1 is thinking about dying", "date 1", alTemp, alHum, alWater, alLight, alImg));
+        alHome.add(new Plant(2, "test 2", "Plant 2 might by dying", "date 2", alTemp, alHum, alWater, alLight, alImg));
+        alHome.add(new Plant(3, "test 3", "Plant 3 is going to die", "date 3", alTemp, alHum, alWater, alLight, alImg));
 
         //DataTest End
 
         rvHome = findViewById(R.id.rvHome);
         rvHome.setHasFixedSize(true);
-        rvlmHome = new GridLayoutManager(this, 2);
+        rvlmHome = new GridLayoutManager(this, 1);
         rvaHome = new HomeRecyclerAdapter(alHome, getApplicationContext());
 
         rvHome.setLayoutManager(rvlmHome);

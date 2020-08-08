@@ -13,9 +13,9 @@ public class Plant implements Serializable {
     private ArrayList<Integer> humidity;
     private ArrayList<Double> waterLvl;
     private ArrayList<Integer> lightLvl;
-    private String plantImage;
+    private ArrayList<String> plantImage;
 
-    public Plant(int plantId, String plantName, String plantDescription, String datePlanted, ArrayList<Double> temperature, ArrayList<Integer> humidity, ArrayList<Double> waterLvl, ArrayList<Integer> lightLvl, String plantImage) {
+    public Plant(int plantId, String plantName, String plantDescription, String datePlanted, ArrayList<Double> temperature, ArrayList<Integer> humidity, ArrayList<Double> waterLvl, ArrayList<Integer> lightLvl, ArrayList<String> plantImage) {
         this.plantId = plantId;
         this.plantName = plantName;
         this.plantDescription = plantDescription;
@@ -59,7 +59,7 @@ public class Plant implements Serializable {
         return lightLvl;
     }
 
-    public String getPlantImage() {
+    public ArrayList<String> getPlantImage() {
         return plantImage;
     }
 

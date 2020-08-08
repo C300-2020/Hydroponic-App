@@ -6,13 +6,21 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 public class SummaryActivity extends AppCompatActivity {
 
-    TextView tvName, tvDescription;
+    TextView tvDescription;
     ImageView ivSummary;
 
     RecyclerView rvSummary;
@@ -28,6 +36,8 @@ public class SummaryActivity extends AppCompatActivity {
 
         tvDescription = findViewById(R.id.tvDescription);
         ivSummary = findViewById(R.id.ivSummary);
+        rvSummary = findViewById(R.id.rvSummary);
+        rvSummary.setHasFixedSize(true);
 
         Intent i = getIntent();
         plantInfo = (Plant) i.getSerializableExtra("data");
@@ -35,16 +45,34 @@ public class SummaryActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(plantInfo.getPlantName());
 
-        tvDescription.setText(plantInfo.getPlantDescription());
+        if(!(plantInfo.getPlantImage().isEmpty())){
 
-        if(plantInfo.getPlantImage().equals("")){
-            ivSummary.setImageResource(R.drawable.ic_launcher_background);
+            String url = "https://hydroponic.myapplicationdev.com/webservices/plantImg/" + plantInfo.getPlantImage().get(0);
+            Picasso.with(this).load(url).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    ivSummary.setBackground(new BitmapDrawable(getApplicationContext().getResources(), bitmap));
+                }
+
+                @Override
+                public void onBitmapFailed(Drawable errorDrawable) {
+                    Toast.makeText(getApplicationContext(), "No Such Image Found", Toast.LENGTH_LONG).show();
+                    ivSummary.setImageResource(R.drawable.ic_launcher_background);
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+                    Toast.makeText(getApplicationContext(), "Image Loading.....", Toast.LENGTH_LONG).show();
+                    ivSummary.setImageResource(R.drawable.ic_launcher_background);
+                }
+            });
+
         }else{
-            ivSummary.setImageResource(R.drawable.ic_launcher_background);
+            Toast.makeText(getApplicationContext(), "No Image Available", Toast.LENGTH_LONG).show();
         }
 
-        rvSummary = findViewById(R.id.rvSummary);
-        rvSummary.setHasFixedSize(true);
+        tvDescription.setText(plantInfo.getPlantDescription());
+
         rvlmSummary = new GridLayoutManager(this, 2);
         rvaSummary = new SummaryRecyclerAdapter(plantInfo, getApplicationContext());
 

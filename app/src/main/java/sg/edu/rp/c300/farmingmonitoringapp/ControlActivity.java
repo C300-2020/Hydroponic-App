@@ -29,6 +29,7 @@ public class ControlActivity extends AppCompatActivity {
     Button btn;
 
     String waterOn, lightOn, defLight, defWater;
+    Boolean controllable;
 
     FirebaseDatabase fbdb;
     DatabaseReference rfWater, rfLight;
@@ -45,60 +46,68 @@ public class ControlActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Controls");
 
-        fbdb = FirebaseDatabase.getInstance();
-        rfWater = fbdb.getReference("controls").child("1").child("water");
-        rfLight = fbdb.getReference("controls").child("1").child("light");
+        Intent i = getIntent();
+        controllable = i.getBooleanExtra("controllable", false);
 
-        rfLight.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                if (value != null){
-                    if(value.equalsIgnoreCase("on")){
-                        swLight.setChecked(true);
-                        lightOn = "on";
-                        defLight = "on";
-                    }else if(value.equalsIgnoreCase("off")){
-                        swLight.setChecked(false);
-                        lightOn = "off";
-                        defLight = "off";
+        if(controllable){
+
+            btn.setText("Apply");
+
+            fbdb = FirebaseDatabase.getInstance();
+            rfWater = fbdb.getReference("controls").child("1").child("water");
+            rfLight = fbdb.getReference("controls").child("1").child("light");
+
+            rfLight.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String value = dataSnapshot.getValue(String.class);
+                    if (value != null){
+                        if(value.equalsIgnoreCase("on")){
+                            swLight.setChecked(true);
+                            lightOn = "on";
+                            defLight = "on";
+                        }else if(value.equalsIgnoreCase("off")){
+                            swLight.setChecked(false);
+                            lightOn = "off";
+                            defLight = "off";
+                        }
                     }
                 }
-                Log.d("From DB - light", "Value is: " + value);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) { }
+            });
 
-        rfWater.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                if (value != null){
-                    if(value.equalsIgnoreCase("on")){
-                        swWater.setChecked(true);
-                        waterOn = "on";
-                        defWater = "on";
-                    }else if(value.equalsIgnoreCase("off")){
-                        swWater.setChecked(false);
-                        waterOn = "off";
-                        defWater = "off";
+            rfWater.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String value = dataSnapshot.getValue(String.class);
+                    if (value != null){
+                        if(value.equalsIgnoreCase("on")){
+                            swWater.setChecked(true);
+                            waterOn = "on";
+                            defWater = "on";
+                        }else if(value.equalsIgnoreCase("off")){
+                            swWater.setChecked(false);
+                            waterOn = "off";
+                            defWater = "off";
+                        }
                     }
                 }
-                Log.d("From DB - water", "Value is: " + value);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
 
-
+        }else{
+            btn.setText("Return");
+            Toast.makeText(getApplicationContext(), "Plant's Environment is Uncontrollable", Toast.LENGTH_LONG).show();
+        }
 
         swLight.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
 
-                if(checked == true){
+                if(checked){
                     lightOn = "on";
                 }else{
                     lightOn = "off";
@@ -122,13 +131,15 @@ public class ControlActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(!lightOn.equalsIgnoreCase(defLight) || !waterOn.equalsIgnoreCase(defWater)){
-                    rfLight.setValue(lightOn);
-                    rfWater.setValue(waterOn);
-                    Toast.makeText(getApplicationContext(), "Water is switched " + waterOn + "\nLight is switched " + lightOn, Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(getApplicationContext(), "No Changes Made", Toast.LENGTH_LONG).show();
-                }
+               if(controllable){
+                   if(!lightOn.equalsIgnoreCase(defLight) || !waterOn.equalsIgnoreCase(defWater)){
+                       rfLight.setValue(lightOn);
+                       rfWater.setValue(waterOn);
+                       Toast.makeText(getApplicationContext(), "Water is switched " + waterOn + "\nLight is switched " + lightOn, Toast.LENGTH_LONG).show();
+                   }else{
+                       Toast.makeText(getApplicationContext(), "No Changes Made", Toast.LENGTH_LONG).show();
+                   }
+               }
 
                 finish();
             }

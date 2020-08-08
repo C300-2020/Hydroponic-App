@@ -7,13 +7,4 @@
         <item name="titleTextColor">#000000</item>
     </style>
 
-    <style name="AppTheme.withoutActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#ffffff</item>
-        <item name="colorPrimaryDark">#000000</item>
-        <item name="colorAccent">#228B22</item>
-        <item name="titleTextColor">#ffffff</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
 </resources>

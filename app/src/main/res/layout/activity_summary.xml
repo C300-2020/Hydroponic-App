@@ -7,24 +7,29 @@
     android:orientation="vertical"
     tools:context=".SummaryActivity">
 
-    <ImageView
-        android:id="@+id/ivSummary"
-        android:layout_width="500px"
-        android:layout_height="500px"
-        android:layout_marginHorizontal="20px"
-        android:layout_margin="25px"
-        android:layout_gravity="center"/>
-
-    <TextView
-        android:id="@+id/tvDescription"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_marginHorizontal="20px"
         android:layout_margin="25px"
-        android:textColor="#000000"
-        android:textSize="40px"
-        android:hint="Description" />
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivSummary"
+            android:layout_width="500px"
+            android:layout_height="500px"
+            android:layout_gravity="top|left"/>
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_margin="15px"
+            android:textColor="#000000"
+            android:textSize="40px"
+            android:hint="Description" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvControls"
