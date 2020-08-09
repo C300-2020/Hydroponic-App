@@ -13,6 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/ivHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="Plant's Image" />
+
         <View
             android:id="@+id/vBackground"
             android:layout_width="match_parent"

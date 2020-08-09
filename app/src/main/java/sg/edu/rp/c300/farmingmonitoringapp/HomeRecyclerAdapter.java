@@ -1,16 +1,13 @@
 package sg.edu.rp.c300.farmingmonitoringapp;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,18 +15,9 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-import cz.msebera.android.httpclient.Header;
 
 public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.HomeViewHolder> {
 
@@ -44,17 +32,19 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
     public class HomeViewHolder extends RecyclerView.ViewHolder{
 
+        CardView cvHome;
         RelativeLayout rlHome;
         TextView tvPlantName, tvPlantDate;
-        CardView cvHome;
+        ImageView ivHome;
 
         public HomeViewHolder(final View itemView) {
             super(itemView);
 
+            cvHome = itemView.findViewById(R.id.cvHome);
+            ivHome = itemView.findViewById(R.id.ivHome);
             rlHome = itemView.findViewById(R.id.rlHome);
             tvPlantName = itemView.findViewById(R.id.tvNameHome);
             tvPlantDate = itemView.findViewById(R.id.tvDateHome);
-            cvHome = itemView.findViewById(R.id.cvHome);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -87,34 +77,15 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     public void onBindViewHolder(final HomeViewHolder holder, final int position) {
 
         Plant currentPlant = hPlantList.get(position);
-
-        drawable = holder.itemView.getResources().getDrawable(R.drawable.ic_launcher_background);
-        holder.rlHome.setBackground(drawable);
         holder.tvPlantName.setText(currentPlant.getPlantName());
         holder.tvPlantDate.setText(currentPlant.getDatePlanted());
 
         if(!(currentPlant.getPlantImage().isEmpty())){
-
             String url = "https://hydroponic.myapplicationdev.com/webservices/plantImg/" + currentPlant.getPlantImage().get(0);
-            Picasso.with(hContext).load(url).into(new Target() {
-                @Override
-                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                    holder.cvHome.setBackground(new BitmapDrawable(hContext.getResources(), bitmap));
-                }
-
-                @Override
-                public void onBitmapFailed(Drawable errorDrawable) {
-                    Toast.makeText(hContext, "No Such Image Found", Toast.LENGTH_LONG).show();
-                }
-
-                @Override
-                public void onPrepareLoad(Drawable placeHolderDrawable) {
-                    Toast.makeText(hContext, "Image Loading.....", Toast.LENGTH_LONG).show();
-                }
-            });
-
+            Picasso.with(hContext).load(url).fit().centerCrop().error(R.drawable.default_plant_image).into(holder.ivHome);
         }else{
-            Toast.makeText(hContext, "No Image Available", Toast.LENGTH_LONG).show();
+            Picasso.with(hContext).load(R.drawable.default_plant_image).fit().centerCrop().into(holder.ivHome);
+            Toast.makeText(hContext, "No Image Available Today", Toast.LENGTH_LONG).show();
         }
 
     }
