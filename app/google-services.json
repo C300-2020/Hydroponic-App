@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "499375944304",
+    "firebase_url": "https://hydrophonic-app.firebaseio.com",
+    "project_id": "hydrophonic-app",
+    "storage_bucket": "hydrophonic-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:499375944304:android:bfaa232fee31746b2fbab5",
+        "android_client_info": {
+          "package_name": "sg.edu.rp.c300.farmingmonitoringapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "499375944304-jk5nfe8tu4b0d3af6g377qpeqe34jhpe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcjPT8-9_0JsecbpNih4P6a7OrofXpBOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "499375944304-jk5nfe8tu4b0d3af6g377qpeqe34jhpe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
