@@ -26,9 +26,6 @@ public class HomeActivity extends AppCompatActivity {
     RecyclerView.LayoutManager rvlmHome;
 
     ArrayList<Plant> alHome;
-    ArrayList<Double> alTemp, alWater;
-    ArrayList<Integer> alHum, alLight;
-    ArrayList<String> alImg;
 
     AsyncHttpClient client;
 
@@ -41,11 +38,6 @@ public class HomeActivity extends AppCompatActivity {
         actionBar.setTitle("Home");
 
         alHome = new ArrayList<>();
-        alTemp = new ArrayList<>();
-        alHum = new ArrayList<>();
-        alWater = new ArrayList<>();
-        alLight = new ArrayList<>();
-        alImg = new ArrayList<>();
 
         client = new AsyncHttpClient();
         client.get("https://hydroponic.myapplicationdev.com/webservices/retrieve_all.php", new JsonHttpResponseHandler() {
@@ -55,46 +47,19 @@ public class HomeActivity extends AppCompatActivity {
 
                 try {
 
-                    alHome.clear();
-                    alTemp.clear();
-                    alHum.clear();
-                    alLight.clear();
-                    alWater.clear();
-                    alImg.clear();
-
                     for (int i = 0; i<response.length(); i++) {
                         JSONObject plant = (JSONObject) response.get(i);
-
-                        for (int a = 0; a<plant.getJSONArray("temp").length(); a++){
-                            alTemp.add((Double) plant.getJSONArray("temp").get(a));
-                        }
-
-                        for (int a = 0; a<plant.getJSONArray("humidity").length(); a++){
-                            alHum.add((Integer) plant.getJSONArray("humidity").get(a));
-                        }
-
-                        for (int a = 0; a<plant.getJSONArray("light").length(); a++){
-                            alLight.add((Integer) plant.getJSONArray("light").get(a));
-                        }
-
-                        for (int a = 0; a<plant.getJSONArray("water").length(); a++){
-                            alWater.add((Double) plant.getJSONArray("water").get(a));
-                        }
-
-                        for(int a = 0; a<plant.getJSONArray("image").length(); a++){
-                            alImg.add((String) plant.getJSONArray("image").get(a));
-                        }
 
                         Plant p = new Plant(
                                 plant.getInt("id_plant"),
                                 plant.getString("plant_name"),
                                 plant.getString("description"),
                                 plant.getString("date_planted"),
-                                alTemp,
-                                alHum,
-                                alWater,
-                                alLight,
-                                alImg);
+                                plant.getDouble("temp"),
+                                plant.getInt("humidity"),
+                                plant.getDouble("water"),
+                                plant.getInt("light"),
+                                plant.getString("image"));
 
                         alHome.add(p);
                     }
@@ -110,40 +75,9 @@ public class HomeActivity extends AppCompatActivity {
 
         //DataTest
 
-//        alTemp.add(36.9);
-//        alTemp.add(37.9);
-//        alTemp.add(36.9);
-//        alTemp.add(35.9);
-//        alTemp.add(37.9);
-//        alTemp.add(39.9);
-//        alTemp.add(40.9);
-//        alTemp.add(36.9);
-//        alTemp.add(37.9);
-//        alTemp.add(36.9);
-//        alTemp.add(35.9);
-//        alTemp.add(37.9);
-//        alTemp.add(39.9);
-//        alTemp.add(40.9);
-//        alTemp.add(41.5);
-//
-//        alHum.add(1);
-//        alHum.add(10);
-//
-//        alWater.add(3.0);
-//        alWater.add(3.5);
-//
-//        alLight.add(1000);
-//        alLight.add(100);
-//
-//        alImg.add("image1");
-//        alImg.add("image2");
-//        alImg.add("image3");
-//        alImg.add("image4");
-//        alImg.add("image5");
-//
-//        alHome.add(new Plant(1, "test 1", "Plant 1 is thinking about dying", "date 1", alTemp, alHum, alWater, alLight, alImg));
-//        alHome.add(new Plant(2, "test 2", "Plant 2 might by dying", "date 2", alTemp, alHum, alWater, alLight, alImg));
-//        alHome.add(new Plant(3, "test 3", "Plant 3 is going to die", "date 3", alTemp, alHum, alWater, alLight, alImg));
+//        alHome.add(new Plant(1, "test 1", "Plant 1 is thinking about dying", "date 1", 36.6, 40, 4.5, 500, "default.jpg"));
+//        alHome.add(new Plant(2, "test 2", "Plant 2 might by dying", "date 2", 36.6, 40, 4.5, 500, "default.jpg"));
+//        alHome.add(new Plant(3, "test 3", "Plant 3 is going to die", "date 3", 36.6, 40, 4.5, 500, "default.jpg"));
 
         //DataTest End
 

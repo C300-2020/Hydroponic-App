@@ -3,6 +3,7 @@ package sg.edu.rp.c300.farmingmonitoringapp;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,9 +30,9 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
         TextView tvValue, tvCategory;
         RelativeLayout rlSummary;
 
-        ArrayList alSelected, alData;
         String selectedType;
-        Boolean empty, controllable;
+        Integer dataID;
+        Boolean controllable;
 
         public SummaryViewHolder (View itemView) {
             super(itemView);
@@ -40,54 +41,24 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
             tvCategory = itemView.findViewById(R.id.tvCategory);
             rlSummary = itemView.findViewById(R.id.rlSummary);
 
-            alSelected = new ArrayList();
-            alData = new ArrayList();
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    alSelected.clear();
                     int selected = getAdapterPosition();
 
+                    dataID = plantInfo.getPlantId();
+
                     if(selected == 0){
-                        alData = plantInfo.getTemperature();
-                        if(!alData.isEmpty()){
-                            alSelected.addAll(alData);
-                            empty = false;
-                        }else{
-                            empty = true;
-                        }
                         selectedType = "Temperature";
                     }else if(selected == 1){
-                        alData = plantInfo.getHumidity();
-                        if(!alData.isEmpty()){
-                            alSelected.addAll(alData);
-                            empty = false;
-                        }else{
-                            empty = true;
-                        }
                         selectedType = "Humidity";
                     }else if(selected == 2){
-                        alData = plantInfo.getWaterLvl();
-                        if(!alData.isEmpty()){
-                            alSelected.addAll(alData);
-                            empty = false;
-                        }else{
-                            empty = true;
-                        }
                         selectedType = "Water Level";
                     }else if(selected == 3){
-                        alData = plantInfo.getLightLvl();
-                        if(!alData.isEmpty()){
-                            alSelected.addAll(alData);
-                            empty = false;
-                        }else{
-                            empty = true;
-                        }
                         selectedType = "Light Level";
                     }else if(selected == 4){
-                        if( !(plantInfo.getHumidity().isEmpty()) && !(plantInfo.getTemperature().isEmpty()) && !(plantInfo.getWaterLvl().isEmpty()) && !(plantInfo.getLightLvl().isEmpty()) ){
+                        if( (plantInfo.getHumidity() != null) && (plantInfo.getTemperature() != null) && (plantInfo.getWaterLvl() != null) && (plantInfo.getLightLvl() != null) ){
                             controllable = true;
                         }else{
                             controllable = false;
@@ -103,9 +74,8 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
                         view.getContext().startActivity(i);
                     }else{
                         Intent i = new Intent(view.getContext(), GraphActivity.class);
-                        i.putExtra("type", selectedType);
-                        i.putExtra("data", alSelected);
-                        i.putExtra("empty", empty);
+                        i.putExtra("dataType", selectedType);
+                        i.putExtra("id", dataID);
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         view.getContext().startActivity(i);
                     }
@@ -139,22 +109,22 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
             if(position == 0){
                 drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_temperature_background);
                 holder.rlSummary.setBackground(drawable);
-                holder.tvValue.setText(String.valueOf(plantInfo.getTemperature().get(plantInfo.getTemperature().size()-1)) + "°C");
+                holder.tvValue.setText(String.valueOf(plantInfo.getTemperature()) + "°C");
                 holder.tvCategory.setText("Temperature");
             }else if(position == 1){
                 drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_humidity_background);
                 holder.rlSummary.setBackground(drawable);
-                holder.tvValue.setText(String.valueOf(plantInfo.getHumidity().get(plantInfo.getHumidity().size()-1)) + "%");
+                holder.tvValue.setText(String.valueOf(plantInfo.getHumidity()) + "%");
                 holder.tvCategory.setText("Humidity");
             }else if(position == 2){
                 drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_water_level_background);
                 holder.rlSummary.setBackground(drawable);
-                holder.tvValue.setText(String.valueOf(plantInfo.getWaterLvl().get(plantInfo.getWaterLvl().size()-1)) + "CM");
+                holder.tvValue.setText(String.valueOf(plantInfo.getWaterLvl()) + "CM");
                 holder.tvCategory.setText("Water Level");
             }else if(position == 3){
                 drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_light_level_background);
                 holder.rlSummary.setBackground(drawable);
-                holder.tvValue.setText(String.valueOf(plantInfo.getLightLvl().get(plantInfo.getLightLvl().size()-1)) + "lx");
+                holder.tvValue.setText(String.valueOf(plantInfo.getLightLvl()) + "lx");
                 holder.tvCategory.setText("Light Level");
             }else if(position == 4){
                 drawable = holder.itemView.getResources().getDrawable(R.drawable.changed_temperature_background);

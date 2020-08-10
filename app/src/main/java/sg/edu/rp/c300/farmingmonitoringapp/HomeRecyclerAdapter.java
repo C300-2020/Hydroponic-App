@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.HomeViewHolder> {
 
-    private Drawable drawable;
     private ArrayList<Plant> hPlantList;
     private Context hContext;
 
@@ -81,7 +80,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         holder.tvPlantDate.setText(currentPlant.getDatePlanted());
 
         if(!(currentPlant.getPlantImage().isEmpty())){
-            String url = "https://hydroponic.myapplicationdev.com/webservices/plantImg/" + currentPlant.getPlantImage().get(0);
+            String url = "https://hydroponic.myapplicationdev.com/webservices/plantImg/" + currentPlant.getPlantImage();
             Picasso.with(hContext).load(url).fit().centerCrop().error(R.drawable.default_plant_image).into(holder.ivHome);
         }else{
             Picasso.with(hContext).load(R.drawable.default_plant_image).fit().centerCrop().into(holder.ivHome);

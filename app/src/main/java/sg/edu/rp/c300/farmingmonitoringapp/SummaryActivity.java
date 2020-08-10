@@ -43,7 +43,7 @@ public class SummaryActivity extends AppCompatActivity {
 
         if(!(plantInfo.getPlantImage().isEmpty())){
 
-            String url = "https://hydroponic.myapplicationdev.com/webservices/plantImg/" + plantInfo.getPlantImage().get(0);
+            String url = "https://hydroponic.myapplicationdev.com/webservices/plantImg/" + plantInfo.getPlantImage();
             Picasso.with(this).load(url).fit().centerCrop().error(R.drawable.default_plant_image).into(ivSummary);
 
         }else{
