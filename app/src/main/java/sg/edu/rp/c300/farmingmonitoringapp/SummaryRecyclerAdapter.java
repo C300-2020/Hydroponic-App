@@ -65,8 +65,6 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
                         }
                     }
 
-
-
                     if(selected == 4){
                         Intent i = new Intent(view.getContext(), ControlActivity.class);
                         i.putExtra("controllable", controllable);

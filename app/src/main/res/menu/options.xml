@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/monthly"
-        android:title="Monthly"/>
+        android:id="@+id/daily"
+        android:title="Daily"/>
 
     <item
         android:id="@+id/weekly"
         android:title="Weekly"/>
 
     <item
-        android:id="@+id/daily"
-        android:title="Daily"/>
+        android:id="@+id/monthly"
+        android:title="Monthly"/>
 
 </menu>

@@ -57,8 +57,8 @@ public class HomeActivity extends AppCompatActivity {
                                 plant.getString("date_planted"),
                                 plant.getDouble("temp"),
                                 plant.getInt("humidity"),
-                                plant.getDouble("water"),
-                                plant.getInt("light"),
+                                0.0,
+                                0,
                                 plant.getString("image"));
 
                         alHome.add(p);

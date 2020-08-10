@@ -21,11 +21,9 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
@@ -55,7 +53,7 @@ public class GraphActivity extends AppCompatActivity {
         Intent i = getIntent();
         dataType = i.getStringExtra("dataType");
         id  = i.getIntExtra("dataID", 1);
-        type = "daily";
+        type = "Daily";
 
         actionBar = getSupportActionBar();
         actionBar.setTitle(dataType + "'s " + type + " Graph");
@@ -75,7 +73,9 @@ public class GraphActivity extends AppCompatActivity {
 
                 try {
 
-                    Log.i("TAG1", "onSuccess: lmao " + response.getJSONArray("data").length());
+                    Log.i("TAG1", "onSuccess: lmao " + response.getJSONArray("data"));
+
+                    alSelected.clear();
 
                     for (int i = 0; i<response.getJSONArray("data").length(); i++){
                         alSelected.add(Double.parseDouble(response.getJSONArray("data").get(i).toString()));
@@ -86,11 +86,42 @@ public class GraphActivity extends AppCompatActivity {
                     Log.i("TAG2", "onSuccess: lmao "+ alSelected.size());
 
                 }catch (JSONException e) {
-                    Log.i("GraphActivity", "onSuccess: Catch:: " + e);
+                    Log.i("GraphActivity", "onSuccess: Catch:: " + e + " = " + dataType );
                 }
 
             }
         });
+
+        //Data Test
+
+//        alSelected.add(11.1);
+//        alSelected.add(12.1);
+//        alSelected.add(13.1);
+//        alSelected.add(14.1);
+//        alSelected.add(15.1);
+//        alSelected.add(16.1);
+//        alSelected.add(17.1);
+//        alSelected.add(18.1);
+//        alSelected.add(20.1);
+//        alSelected.add(10.1);
+//        alSelected.add(9.1);
+//        alSelected.add(21.1);
+//        alSelected.add(25.1);
+//        alSelected.add(8.1);
+//        alSelected.add(7.1);
+//        alSelected.add(5.1);
+//        alSelected.add(25.1);
+//        alSelected.add(15.1);
+//        alSelected.add(14.1);
+//        alSelected.add(13.1);
+//        alSelected.add(17.1);
+//        alSelected.add(18.1);
+//        alSelected.add(19.1);
+//        alSelected.add(11.1);
+//
+//        setGraph();
+
+        //Data End
 
     }
 
@@ -98,6 +129,7 @@ public class GraphActivity extends AppCompatActivity {
 
         data = new ArrayList<>();
         Log.i("TAG3", "onSuccess: lmao "+ alSelected.size());
+
         if(!alSelected.isEmpty()){
 
             for (int a = 0; a < alSelected.size(); a++){
@@ -107,7 +139,11 @@ public class GraphActivity extends AppCompatActivity {
 
             Log.i("TAG4", "onCreate: lmao " + data.size());
             setData = new LineDataSet(data, dataType);
-            setData.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+
+            if(alSelected.size() >= 10){
+                setData.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+            }
+
             setData.setDrawFilled(true);
             setData.setDrawCircles(false);
             setData.setDrawValues(!setData.isDrawValuesEnabled());
@@ -126,18 +162,20 @@ public class GraphActivity extends AppCompatActivity {
             lineChart.invalidate();
             lineChart.animateXY(2000, 2000);
             lineChart.getDescription().setEnabled(false);
-            lineChart.setTouchEnabled(true);
-            lineChart.setDragEnabled(true);
             lineChart.setScaleEnabled(true);
             lineChart.getAxisLeft().setEnabled(true);
             lineChart.getAxisRight().setEnabled(true);
 
-            YAxis y = lineChart.getAxisLeft();
-            y.setLabelCount(6, true);
-            y.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+            YAxis yl = lineChart.getAxisLeft();
+            yl.setLabelCount(6, true);
+            yl.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+
+            YAxis yr = lineChart.getAxisRight();
+            yr.setLabelCount(6, true);
+            yr.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
 
             XAxis x = lineChart.getXAxis();
-            x.setLabelCount(10, true);
+            x.setLabelCount(alSelected.size(), true);
             x.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         }else{
@@ -163,9 +201,9 @@ public class GraphActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
 
-            case R.id.monthly:
+            case R.id.daily:
 
-                type = "monthly";
+                type = "Daily";
                 actionBar.setTitle(dataType + "'s " + type + " Graph");
 
                 params.add("id", String.valueOf(id));
@@ -179,10 +217,13 @@ public class GraphActivity extends AppCompatActivity {
 
                         try {
 
-                            for (int i = 0; i<response.length(); i++){
-                                alSelected.add((Double) response.getJSONArray("data").get(i));
+                            alSelected.clear();
+
+                            for (int i = 0; i<response.getJSONArray("data").length(); i++){
+                                alSelected.add(Double.parseDouble(response.getJSONArray("data").get(i).toString()));
                             }
-                            lineChart.notifyDataSetChanged();
+
+                            setGraph();
 
                         }catch (JSONException e) {
                             Log.i("GraphActivity", "onSuccess: Catch:: " + e);
@@ -190,10 +231,12 @@ public class GraphActivity extends AppCompatActivity {
 
                     }
                 });
+
+                return true;
 
             case R.id.weekly:
 
-                type = "weekly";
+                type = "Weekly";
                 actionBar.setTitle(dataType + "'s " + type + " Graph");
 
                 params.add("id", String.valueOf(id));
@@ -207,10 +250,13 @@ public class GraphActivity extends AppCompatActivity {
 
                         try {
 
-                            for (int i = 0; i<response.length(); i++){
-                                alSelected.add((Double) response.getJSONArray("data").get(i));
+                            alSelected.clear();
+
+                            for (int i = 0; i<response.getJSONArray("data").length(); i++){
+                                alSelected.add(Double.parseDouble(response.getJSONArray("data").get(i).toString()));
                             }
-                            lineChart.notifyDataSetChanged();
+
+                            setGraph();
 
                         }catch (JSONException e) {
                             Log.i("GraphActivity", "onSuccess: Catch:: " + e);
@@ -219,9 +265,11 @@ public class GraphActivity extends AppCompatActivity {
                     }
                 });
 
-            case R.id.daily:
+                return true;
 
-                type = "daily";
+            case R.id.monthly:
+
+                type = "Monthly";
                 actionBar.setTitle(dataType + "'s " + type + " Graph");
 
                 params.add("id", String.valueOf(id));
@@ -235,10 +283,13 @@ public class GraphActivity extends AppCompatActivity {
 
                         try {
 
-                            for (int i = 0; i<response.length(); i++){
-                                alSelected.add((Double) response.getJSONArray("data").get(i));
+                            alSelected.clear();
+
+                            for (int i = 0; i<response.getJSONArray("data").length(); i++){
+                                alSelected.add(Double.parseDouble(response.getJSONArray("data").get(i).toString()));
                             }
-                            lineChart.notifyDataSetChanged();
+
+                            setGraph();
 
                         }catch (JSONException e) {
                             Log.i("GraphActivity", "onSuccess: Catch:: " + e);
@@ -246,6 +297,8 @@ public class GraphActivity extends AppCompatActivity {
 
                     }
                 });
+
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
