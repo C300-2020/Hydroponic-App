@@ -68,6 +68,7 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
                     if(selected == 4){
                         Intent i = new Intent(view.getContext(), ControlActivity.class);
                         i.putExtra("controllable", controllable);
+                        i.putExtra("plantID", plantInfo.getPlantId());
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         view.getContext().startActivity(i);
                     }else{

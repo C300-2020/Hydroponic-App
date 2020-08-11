@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -16,6 +18,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -79,7 +83,7 @@ public class HomeActivity extends AppCompatActivity {
 //        alHome.add(new Plant(2, "test 2", "Plant 2 might by dying", "date 2", 36.6, 40, 4.5, 500, "default.jpg"));
 //        alHome.add(new Plant(3, "test 3", "Plant 3 is going to die", "date 3", 36.6, 40, 4.5, 500, "default.jpg"));
 
-        //DataTest End
+        //DataTest
 
         rvHome = findViewById(R.id.rvHome);
         rvHome.setHasFixedSize(true);

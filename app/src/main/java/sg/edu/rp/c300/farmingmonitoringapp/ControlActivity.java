@@ -28,6 +28,7 @@ public class ControlActivity extends AppCompatActivity {
     Button btn;
 
     String waterOn, lightOn, defLight, defWater;
+    Integer plantID;
     Boolean controllable;
 
     FirebaseDatabase fbdb;
@@ -46,58 +47,62 @@ public class ControlActivity extends AppCompatActivity {
         actionBar.setTitle("Controls");
 
         Intent i = getIntent();
+        plantID = i.getIntExtra("plantID", 0);
         controllable = i.getBooleanExtra("controllable", false);
 
-        if(controllable){
+        if (controllable) {
 
             btn.setText("Apply");
 
             fbdb = FirebaseDatabase.getInstance();
-            rfWater = fbdb.getReference("controls").child("1").child("water");
-            rfLight = fbdb.getReference("controls").child("1").child("light");
+            rfWater = fbdb.getReference("controls").child(String.valueOf(plantID)).child("water");
+            rfLight = fbdb.getReference("controls").child(String.valueOf(plantID)).child("light");
 
             rfLight.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String value = dataSnapshot.getValue(String.class);
-                    if (value != null){
-                        if(value.equalsIgnoreCase("on")){
+                    if (value != null) {
+                        if (value.equalsIgnoreCase("on")) {
                             swLight.setChecked(true);
                             lightOn = "on";
                             defLight = "on";
-                        }else if(value.equalsIgnoreCase("off")){
+                        } else if (value.equalsIgnoreCase("off")) {
                             swLight.setChecked(false);
                             lightOn = "off";
                             defLight = "off";
                         }
                     }
                 }
+
                 @Override
-                public void onCancelled(DatabaseError databaseError) { }
+                public void onCancelled(DatabaseError databaseError) {
+                }
             });
 
             rfWater.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String value = dataSnapshot.getValue(String.class);
-                    if (value != null){
-                        if(value.equalsIgnoreCase("on")){
+                    if (value != null) {
+                        if (value.equalsIgnoreCase("on")) {
                             swWater.setChecked(true);
                             waterOn = "on";
                             defWater = "on";
-                        }else if(value.equalsIgnoreCase("off")){
+                        } else if (value.equalsIgnoreCase("off")) {
                             swWater.setChecked(false);
                             waterOn = "off";
                             defWater = "off";
                         }
                     }
                 }
+
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
             });
 
-        }else{
+        } else {
             btn.setText("Return");
             Toast.makeText(getApplicationContext(), "Plant's Environment is Uncontrollable", Toast.LENGTH_LONG).show();
         }
@@ -106,9 +111,9 @@ public class ControlActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
 
-                if(checked){
+                if (checked) {
                     lightOn = "on";
-                }else{
+                } else {
                     lightOn = "off";
                 }
             }
@@ -118,9 +123,9 @@ public class ControlActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
 
-                if(checked){
+                if (checked) {
                     waterOn = "on";
-                }else{
+                } else {
                     waterOn = "off";
                 }
             }
@@ -130,29 +135,29 @@ public class ControlActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               if(controllable){
-                   if(!lightOn.equalsIgnoreCase(defLight) || !waterOn.equalsIgnoreCase(defWater)){
-                       rfLight.setValue(lightOn);
-                       rfWater.setValue(waterOn);
-                       Toast.makeText(getApplicationContext(), "Water is switched " + waterOn + "\nLight is switched " + lightOn, Toast.LENGTH_LONG).show();
-                   }else{
-                       Toast.makeText(getApplicationContext(), "No Changes Made", Toast.LENGTH_LONG).show();
-                   }
-               }
+                if (controllable) {
+                    if (!lightOn.equalsIgnoreCase(defLight) || !waterOn.equalsIgnoreCase(defWater)) {
+                        rfLight.setValue(lightOn);
+                        rfWater.setValue(waterOn);
+                        Toast.makeText(getApplicationContext(), "Water is switched " + waterOn + "\nLight is switched " + lightOn, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "No Changes Made", Toast.LENGTH_LONG).show();
+                    }
+                }
 
                 finish();
             }
         });
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( ControlActivity.this,  new OnSuccessListener<InstanceIdResult>() {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(ControlActivity.this, new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 String mToken = instanceIdResult.getToken();
-                Log.d("FCM Token",mToken);
+                Log.d("FCM Token", mToken);
             }
         });
 
-        FirebaseMessaging.getInstance().subscribeToTopic("1");
+        FirebaseMessaging.getInstance().subscribeToTopic("hydrophonic-app");
 
     }
 }
