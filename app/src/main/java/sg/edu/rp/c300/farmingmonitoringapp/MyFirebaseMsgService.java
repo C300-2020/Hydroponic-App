@@ -5,8 +5,12 @@ import android.app.NotificationManager;
 import android.os.Build;
 import android.util.Log;
 import androidx.core.app.NotificationCompat;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 //
 // https://medium.com/innoctive-technologies/yet-another-tutorial-of-fcm-notifications-on-android-part-1-2d674ded7e1c
@@ -29,6 +33,10 @@ public final class MyFirebaseMsgService extends FirebaseMessagingService {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
         }
 
+        int max = 1000000;
+        int min = 0;
+        int id = new Random().nextInt((max - min) + 1) + min;
+
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Title: " + remoteMessage.getNotification().getTitle());
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
@@ -36,15 +44,17 @@ public final class MyFirebaseMsgService extends FirebaseMessagingService {
             RemoteMessage.Notification givenNotification = remoteMessage.getNotification();
             String title = givenNotification.getTitle();
             String msg = givenNotification.getBody();
-            this.showNotification(title, msg);
+            Log.d(TAG, "onMessageReceived: count1: " + id);
+            this.showNotification(title, msg, id);
         } else {
             String title = remoteMessage.getData().get("title");
             String msg = remoteMessage.getData().get("message");
-            this.showNotification(title, msg);
+            Log.d(TAG, "onMessageReceived: count2: " + id);
+            this.showNotification(title, msg, id);
         }
     }
 
-    private final void showNotification(String title, String body) {
+    private final void showNotification(String title, String body, Integer id) {
         setupNotificationChannels();
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"default");
@@ -54,7 +64,7 @@ public final class MyFirebaseMsgService extends FirebaseMessagingService {
         builder.setAutoCancel(true);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(0, builder.build());
+        notificationManager.notify(id, builder.build());
     }
 
     private void setupNotificationChannels() {

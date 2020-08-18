@@ -144,15 +144,5 @@ public class ControlActivity extends AppCompatActivity {
             }
         });
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( ControlActivity.this,  new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String mToken = instanceIdResult.getToken();
-                Log.d("FCM Token",mToken);
-            }
-        });
-
-        FirebaseMessaging.getInstance().subscribeToTopic("1");
-
     }
 }
