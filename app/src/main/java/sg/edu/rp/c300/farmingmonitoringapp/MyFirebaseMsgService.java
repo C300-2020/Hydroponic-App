@@ -10,7 +10,6 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
 //
 // https://medium.com/innoctive-technologies/yet-another-tutorial-of-fcm-notifications-on-android-part-1-2d674ded7e1c
