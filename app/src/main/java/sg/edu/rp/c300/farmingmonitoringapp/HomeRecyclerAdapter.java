@@ -2,7 +2,6 @@ package sg.edu.rp.c300.farmingmonitoringapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,11 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -36,6 +40,8 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         TextView tvPlantName, tvPlantDate;
         ImageView ivHome;
 
+        DatabaseReference rfdb, rfWater, rfLight;
+
         public HomeViewHolder(final View itemView) {
             super(itemView);
 
@@ -44,6 +50,8 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
             rlHome = itemView.findViewById(R.id.rlHome);
             tvPlantName = itemView.findViewById(R.id.tvNameHome);
             tvPlantDate = itemView.findViewById(R.id.tvDateHome);
+
+            rfdb = FirebaseDatabase.getInstance().getReference("controls");
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -75,7 +83,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     @Override
     public void onBindViewHolder(final HomeViewHolder holder, final int position) {
 
-        Plant currentPlant = hPlantList.get(position);
+        final Plant currentPlant = hPlantList.get(position);
         holder.tvPlantName.setText(currentPlant.getPlantName());
         holder.tvPlantDate.setText(currentPlant.getDatePlanted());
 
@@ -86,6 +94,24 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
             Picasso.with(hContext).load(R.drawable.default_plant_image).fit().centerCrop().into(holder.ivHome);
             Toast.makeText(hContext, "No Image Available Today", Toast.LENGTH_LONG).show();
         }
+
+        holder.rfdb.child(String.valueOf(currentPlant.getPlantId())).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.getValue() == null) {
+                    holder.rfWater = holder.rfdb.child(String.valueOf(currentPlant.getPlantId())).child("water");
+                    holder.rfLight = holder.rfdb.child(String.valueOf(currentPlant.getPlantId())).child("light");
+
+                    holder.rfLight.setValue("off");
+                    holder.rfWater.setValue("off");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Log.i("TAG", "onCancelled: lmao " + error);
+            }
+        });
 
     }
 
