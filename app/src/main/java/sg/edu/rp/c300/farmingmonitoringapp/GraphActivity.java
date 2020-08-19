@@ -66,7 +66,7 @@ public class GraphActivity extends AppCompatActivity {
         params.add("dataType", dataType);
         params.add("type", type);
 
-        client.post("https://hydroponic.myapplicationdev.com/webservices/retrieve_graphData.php", params, new JsonHttpResponseHandler() {
+        client.post("https://hydroponic.myapplicationdev.com/webservices/back-end/retrieve_graphData.php", params, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -210,7 +210,7 @@ public class GraphActivity extends AppCompatActivity {
                 params.add("dataType", dataType);
                 params.add("type", type);
 
-                client.post("https://hydroponic.myapplicationdev.com/webservices/retrieve_graphData.php", params, new JsonHttpResponseHandler() {
+                client.post("https://hydroponic.myapplicationdev.com/webservices/back-end/retrieve_graphData.php", params, new JsonHttpResponseHandler() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -243,7 +243,7 @@ public class GraphActivity extends AppCompatActivity {
                 params.add("dataType", dataType);
                 params.add("type", type);
 
-                client.post("https://hydroponic.myapplicationdev.com/webservices/retrieve_graphData.php", params, new JsonHttpResponseHandler() {
+                client.post("https://hydroponic.myapplicationdev.com/webservices/back-end/retrieve_graphData.php", params, new JsonHttpResponseHandler() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -276,7 +276,7 @@ public class GraphActivity extends AppCompatActivity {
                 params.add("dataType", dataType);
                 params.add("type", type);
 
-                client.post("https://hydroponic.myapplicationdev.com/webservices/retrieve_graphData.php", params, new JsonHttpResponseHandler() {
+                client.post("https://hydroponic.myapplicationdev.com/webservices/back-end/retrieve_graphData.php", params, new JsonHttpResponseHandler() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
